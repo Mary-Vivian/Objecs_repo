@@ -29,18 +29,6 @@ console.log(agecheck);
 // and category property. The function should return an object that groups the products by their categories, 
 // with the category names as keys and the arrays of products as values.
 
-function sortedproducts(products){
-    const arrangedproducts={};
-
-    products.forEach(item => {
-        if (!(item.category in sortedproducts)) {
-           sortedproducts[item.category]=[];
-    }
-    sortedproducts[item.category].push(item);
-});
-
-    return arrangedproducts;
-}
 const products= [
     { name: 'Laptop', price: 1200, category: 'Electronics' },
     { name: 'Shirt', price: 25, category: 'Clothing' },
@@ -48,8 +36,22 @@ const products= [
     { name: 'Shoes', price: 60, category: 'Clothing' },
   ];
 
-  console.log(sortedproducts(products));
 
+  function sortedproducts(products){
+     return products.reduce((acc, products) =>{
+        const {category} = products;
+        if(!acc[category]){
+            acc[category] = []
+        }
+
+        acc[category].push(products);
+        return acc;
+     });
+
+  }
+
+  const arrangedproducts = sortedproducts(products);
+  console.log(arrangedproducts);
 // Given an array of objects, where each object represents a student with a name and an array of scores,
 //  write a function that returns a new array containing
 //   the names of all students whose average score is greater than or equal to 85.
